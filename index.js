@@ -80,6 +80,12 @@ app.post("/posts", (req, res) => {
 //get/:id
 app.get("/posts/:id", (req, res) => {
     try {
+        const { subject, desc, status } = req.body;
+
+        const ALLOWED = ["draft", "published", "archived"];
+        if (!ALLOWED.includes(status)) {
+            return res.status(400).json({ message: `status는 ${ALLOWED.join(", ")} 중 하나여야 합니다.` });
+        }
         const postId = Number(req.params.id)
         const index = posts.findIndex(b => b.id === postId)
         if (index === -1) {
@@ -95,6 +101,12 @@ app.get("/posts/:id", (req, res) => {
 //put
 app.put("/posts/:id", (req, res) => {
     try {
+        const { subject, desc, status } = req.body;
+
+        const ALLOWED = ["draft", "published", "archived"];
+        if (!ALLOWED.includes(status)) {
+            return res.status(400).json({ message: `status는 ${ALLOWED.join(", ")} 중 하나여야 합니다.` });
+        }
         const postId = Number(req.params.id)
         const index = posts.findIndex(b => b.id === postId)
         if (index === -1) {
@@ -117,6 +129,12 @@ app.put("/posts/:id", (req, res) => {
 
 app.patch("/posts/:id/status", (req, res) => {
     try {
+        const { subject, desc, status } = req.body;
+
+        const ALLOWED = ["draft", "published", "archived"];
+        if (!ALLOWED.includes(status)) {
+            return res.status(400).json({ message: `status는 ${ALLOWED.join(", ")} 중 하나여야 합니다.` });
+        }
         const postId = Number(req.params.id);
         const index = posts.findIndex(p => p.id === postId);
 
@@ -153,6 +171,12 @@ app.patch("/posts/:id/status", (req, res) => {
 //delete
 app.delete("/posts/:id", (req, res) => {
     try {
+        const { subject, desc, status } = req.body;
+
+        const ALLOWED = ["draft", "published", "archived"];
+        if (!ALLOWED.includes(status)) {
+            return res.status(400).json({ message: `status는 ${ALLOWED.join(", ")} 중 하나여야 합니다.` });
+        }
         const postId = Number(req.params.id)
         const index = posts.findIndex(b => b.id === postId)
         if (index === -1) {
